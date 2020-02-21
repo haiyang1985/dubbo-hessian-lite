@@ -1454,6 +1454,7 @@ public class Hessian2Output
 
     class BytesOutputStream extends OutputStream {
         private int _startOffset;
+        private int length;
 
         BytesOutputStream()
                 throws IOException {
@@ -1487,6 +1488,7 @@ public class Hessian2Output
         @Override
         public void write(byte[] buffer, int offset, int length)
                 throws IOException {
+            this.length = length;
             while (length > 0) {
                 int sublen = SIZE - _offset;
 
@@ -1532,6 +1534,10 @@ public class Hessian2Output
             _buffer[startOffset + 2] = (byte) (length);
 
             Hessian2Output.this.flush();
+        }
+
+        public int size() {
+            return this.length;
         }
     }
 }
