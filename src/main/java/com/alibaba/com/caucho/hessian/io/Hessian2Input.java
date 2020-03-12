@@ -3362,6 +3362,7 @@ public class Hessian2Input
 
             case BC_BINARY:
             case BC_BINARY_CHUNK:
+            case 'b'://leave 'b' here even add back BC_BINARY_CHUNK, maybe it's a mistype
                 _isLastChunk = tag == 'B';
                 _chunkLength = (read() << 8) + read();
                 break;
@@ -3385,7 +3386,10 @@ public class Hessian2Input
                 _isLastChunk = true;
                 _chunkLength = tag - 0x20;
                 break;
-            case 0x34: case 0x35: case 0x36: case 0x37:
+            case 0x34:
+            case 0x35:
+            case 0x36:
+            case 0x37:
                 _isLastChunk = true;
                 _chunkLength = (tag - 0x34) * 256 + read();
                 break;
@@ -3412,6 +3416,7 @@ public class Hessian2Input
 
                 switch (code) {
                     case BC_BINARY_CHUNK:
+                    case 'b'://leave 'b' here even add back BC_BINARY_CHUNK, maybe it's a mistype
                         _isLastChunk = false;
 
                         _chunkLength = (read() << 8) + read();
@@ -3442,7 +3447,10 @@ public class Hessian2Input
                         _isLastChunk = true;
                         _chunkLength = code - 0x20;
                         break;
-                    case 0x34: case 0x35: case 0x36: case 0x37:
+                    case 0x34:
+                    case 0x35:
+                    case 0x36:
+                    case 0x37:
                         _isLastChunk = true;
                         _chunkLength = (code - 0x34) * 256 + read();
                         break;
